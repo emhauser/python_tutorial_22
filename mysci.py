@@ -1,6 +1,10 @@
+##Initialize data variable as an emtpy list:
+data = []
+
 # Read the data file
 filename = "data/wxobs20170821.txt"
 datafile = open(filename, 'r')
+
 
 ##METHOD1
 #opens datafile
@@ -9,9 +13,15 @@ datafile = open(filename, 'r')
 
 ##METHOD2
 with open(filename,'r') as datafile:
-    data = datafile.read()
+    for _ in range(3):
+        datafile.readline() 
+        print(_)
+
+    for line in datafile:
+        datum = line.split()
+        data.append(datum)   
  
-#this automatically closes datafile for you. indent 4 lines on data
+#this automatically closes datafile for you. indent 4 lines each time
 
 ##Ultimately delete this in the final code
 #Debug
@@ -20,3 +30,26 @@ with open(filename,'r') as datafile:
 #print string data
 #print('data')
 #print(type(data)
+
+#DEBUG
+#primary_colors = ['red', 'yellow','blue']
+#print(primary_colors[0])
+#print(primary_colors[-1])
+
+#number_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+#print(number_list[0:10:1])
+#num_list = [1:10]
+
+##DEBUG
+#for datum in data:
+#    print(datum)
+#    print(type(datum))
+#print 10th index of data
+#print(data[9])
+#print last index
+#print(data[-1])
+#print every other line of data
+#print(data[::2])
+#print(data[0][0])
+
+
