@@ -1,7 +1,15 @@
+###Column names and column indices
+columns = {'date': 0, 'time': 1, 'tempout': 2, 'windspeed': 7}
+
+##Datatypes for each column(if non-string)
+types = {'tempout':float, 'windspeed': float}
+
+
+
 ##Initialize data variable as an emtpy list:
-data = {'date':[],
-	'time':[],
-	'tempout':[]} ## list [0] vs dict['key'] --> data['time']
+data = {}
+for column in columns:
+    data[column] = []
 
 # Read the data file
 filename = "data/wxobs20170821.txt"
@@ -20,11 +28,33 @@ with open(filename,'r') as datafile:
 
     for line in datafile:
         datum = line.split()
-        data['date'].append(datum[0])
-        data['time'].append(datum[1])
-        data['tempout'].append(float(datum[2]))   
+        for column in columns:
+            i = columns[column]
+            t = types.get(column,str)
+            value = t(datum[i])
+            data[column].append(value)
+   
+def estimate_windchill(t,v):
+    wci = t - 0.7 * v 
+    return wci
+
+##make empty list
+windchill = []
+#make tuple, call windspeed function on each pair
+for temp, windspeed in zip(data['tempout'], data['windspeed']):
+    windchill.append(estimate_windchill(temp, windspeed))
+ 
 
 
+##Debug
+#print(windchill)
+
+
+# DEBUG
+## zip function
+
+#for i, j in zip([1,2], [3,4,5]):
+#    print(i,j)
 
 
 #DEBUG
