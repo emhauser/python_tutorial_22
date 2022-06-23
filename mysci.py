@@ -1,5 +1,7 @@
 ##Initialize data variable as an emtpy list:
-data = []
+data = {'date':[],
+	'time':[],
+	'tempout':[]} ## list [0] vs dict['key'] --> data['time']
 
 # Read the data file
 filename = "data/wxobs20170821.txt"
@@ -15,11 +17,18 @@ datafile = open(filename, 'r')
 with open(filename,'r') as datafile:
     for _ in range(3):
         datafile.readline() 
-        print(_)
 
     for line in datafile:
         datum = line.split()
-        data.append(datum)   
+        data['date'].append(datum[0])
+        data['time'].append(datum[1])
+        data['tempout'].append(datum[2])   
+
+
+#DEBUG
+#print(data['tempout'][9])
+#print(type(data['time']))
+#print(type(data['tempout'][9]))
  
 #this automatically closes datafile for you. indent 4 lines each time
 
