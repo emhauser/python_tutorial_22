@@ -1,38 +1,15 @@
+
+from readdata import read_data
+
+
 ###Column names and column indices
 columns = {'date': 0, 'time': 1, 'tempout': 2, 'windspeed': 7, 'windchill': 12}
 
 ##Datatypes for each column(if non-string)
 types = {'tempout':float, 'windspeed': float, 'windchill':float}
 
-
-
-##Initialize data variable as an emtpy list:
-data = {}
-for column in columns:
-    data[column] = []
-
 # Read the data file
-filename = "data/wxobs20170821.txt"
-datafile = open(filename, 'r')
-
-
-##METHOD1
-#opens datafile
-#data = datafile.read()
-#datafile.close()
-
-##METHOD2
-with open(filename,'r') as datafile:
-    for _ in range(3):
-        datafile.readline() 
-
-    for line in datafile:
-        datum = line.split()
-        for column in columns:
-            i = columns[column]
-            t = types.get(column,str)
-            value = t(datum[i])
-            data[column].append(value)
+data = read_data(columns, types=types)
    
 def estimate_windchill(t,v):
     wci = t - 0.7 * v 

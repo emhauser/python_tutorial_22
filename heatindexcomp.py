@@ -1,45 +1,27 @@
+
+from readdata import read_data
+
+
 ###Column names and column indices
 columns = {'date': 0, 'time': 1, 'tempout': 2, 'humout': 5, 'heatindex': 13}
 
 ##Datatypes for each column(if non-string)
 types = {'tempout':float, 'humout':float, 'heatindex':float}
 
-
-
-##Initialize data variable as an emtpy list:
-data = {}
-for column in columns:
-    data[column] = []
-
 # Read the data file
-filename = "data/wxobs20170821.txt"
-datafile = open(filename, 'r')
-
-
-##METHOD2
-with open(filename,'r') as datafile:
-    for _ in range(3):
-        datafile.readline() 
-
-    for line in datafile:
-        datum = line.split()
-        for column in columns:
-            i = columns[column]
-            t = types.get(column,str)
-            value = t(datum[i])
-            data[column].append(value)
+data = read_data(columns, types=types)
    
 # Compute heat index
 def compute_heatindex(t,hum):
     a = -42.397 
     b = 2.04901523
     c = 10.14333127
-    d = 0.22475541
-    e = 0.00683783
-    f = 0.05481717
+    d = -0.22475541
+    e = -0.00683783
+    f = -0.05481717
     g = 0.00122874
     h = 0.00085282
-    i = 0.00000199
+    i = -0.00000199
 
     rh = hum/100
 
