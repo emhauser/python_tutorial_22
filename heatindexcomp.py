@@ -1,6 +1,6 @@
 
 from readdata import read_data
-
+from printing import print_comparison 
 
 ###Column names and column indices
 columns = {'date': 0, 'time': 1, 'tempout': 2, 'humout': 5, 'heatindex': 13}
@@ -37,15 +37,6 @@ for temp, hum  in zip(data['tempout'], data['humout']):
  
 
 ##Output comparison of data
-print('                      ORIGINAL    ESTIMATED')
-print('   DATE      TIME    HEATINDEX    HEATINDEX    DIFFERENCE')
-print('-------    ------    ---------    ---------    ----------')
-zip_data = zip(data['date'], data['time'], data['heatindex'], heatindex)
-for date, time, hi_data, hi_est in zip_data:
-    hi_diff = hi_data - hi_est
-    print(f'{date}    {time:>6}    {hi_data:9.6f}    {hi_est:9.6f}    {hi_diff:10.6f}')
-
-#for wc_data, wc_est in zip(data['windchill'], windchill):
-    #print(f'{wc_data:.5f}   {wc_est:.5f}    {wc_data - wc_est:.5f}')
+print_comparison("HEATINDEX", data['date'], data['time'], data['heatindex'], heatindex)
 
 
